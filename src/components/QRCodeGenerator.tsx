@@ -14,11 +14,12 @@ const QRCodeGenerator: React.FC<QRCodeGeneratorProps> = ({ value }) => {
 
   useEffect(() => {
     // Use Google Charts API to generate QR code
-    const encodedValue = encodeURIComponent(value);
+    const redirectUrl = window.location.origin + '/qr';
+    const encodedValue = encodeURIComponent(redirectUrl);
     const url = `https://chart.googleapis.com/chart?cht=qr&chl=${encodedValue}&chs=250x250&choe=UTF-8&chld=L|2`;
     setQrCodeUrl(url);
     setIsLoading(false);
-  }, [value]);
+  }, []);
 
   const downloadQRCode = () => {
     const link = document.createElement('a');

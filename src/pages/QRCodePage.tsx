@@ -11,11 +11,11 @@ import { useToast } from '@/hooks/use-toast';
 
 const QRCodePage = () => {
   const { toast } = useToast();
-  const registrationUrl = window.location.origin + '/register';
+  const redirectUrl = window.location.origin + '/qr';
   const [copied, setCopied] = useState(false);
 
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(registrationUrl);
+    navigator.clipboard.writeText(redirectUrl);
     setCopied(true);
     toast({
       title: "Copied!",
@@ -38,12 +38,12 @@ const QRCodePage = () => {
         <div className="max-w-4xl mx-auto text-center mb-8">
           <h1 className="text-3xl font-bold mb-2">Hackathon Registration QR Code</h1>
           <p className="text-gray-600">
-            Share this QR code with participants to easily access the registration form
+            Scan this QR code to directly access the registration form
           </p>
         </div>
         
         <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-          <QRCodeGenerator value={registrationUrl} />
+          <QRCodeGenerator value={redirectUrl} />
           
           <Card>
             <CardHeader>
@@ -55,7 +55,7 @@ const QRCodePage = () => {
             <CardContent>
               <div className="flex items-center space-x-2">
                 <Input
-                  value={registrationUrl}
+                  value={redirectUrl}
                   readOnly
                   className="font-mono text-sm"
                 />
