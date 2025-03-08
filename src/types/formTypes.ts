@@ -1,4 +1,3 @@
-
 export type TechStack = string[];
 
 export enum Degree {
@@ -20,7 +19,6 @@ export enum StudyYear {
 }
 
 export interface RegistrationFormData {
-  user_id?: number;
   full_name: string;
   email: string;
   phone_number: string;
@@ -33,6 +31,8 @@ export interface RegistrationFormData {
   project_idea: string;
   linkedin: string;
   github: string;
+  event_id?: string;
+  event_name?: string;
 }
 
 export interface FormErrors {

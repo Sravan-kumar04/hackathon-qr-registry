@@ -1,17 +1,22 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Degree, FormErrors, RegistrationFormData, StudyYear, TechStack } from '@/types/formTypes';
 import { ArrowLeft, ArrowRight, CheckCircle2, Loader2 } from 'lucide-react';
 import { validateForm, isStepValid, isFormComplete } from '@/utils/formValidation';
+import { getHackathonById } from '@/data/hackathonEvents';
 
 import PersonalInfoForm from './PersonalInfoForm';
 import EducationForm from './EducationForm';
 import TechnicalDetailsForm from './TechnicalDetailsForm';
 import SocialLinksForm from './SocialLinksForm';
 import RegistrationSummary from './RegistrationSummary';
+
+interface RegistrationFormProps {
+  eventId?: string;
+}
 
 const steps = [
   "Personal Information",
@@ -21,11 +26,13 @@ const steps = [
   "Review & Submit"
 ];
 
-const RegistrationForm: React.FC = () => {
+const RegistrationForm: React.FC<RegistrationFormProps> = ({ eventId }) => {
   const { toast } = useToast();
   const [currentStep, setCurrentStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isCompleted, setIsCompleted] = useState(false);
+  
+  const event = eventId ? getHackathonById(eventId) : null;
   
   const [formData, setFormData] = useState<RegistrationFormData>({
     full_name: '',
@@ -40,9 +47,25 @@ const RegistrationForm: React.FC = () => {
     project_idea: '',
     linkedin: '',
     github: '',
+    event_id: eventId || '',
+    event_name: event?.title || 'General Hackathon',
   });
   
   const [errors, setErrors] = useState<FormErrors>({});
+
+  // Update event information if eventId changes
+  useEffect(() => {
+    if (eventId) {
+      const eventInfo = getHackathonById(eventId);
+      if (eventInfo) {
+        setFormData(prev => ({
+          ...prev,
+          event_id: eventId,
+          event_name: eventInfo.title,
+        }));
+      }
+    }
+  }, [eventId]);
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -136,7 +159,7 @@ const RegistrationForm: React.FC = () => {
       setIsCompleted(true);
       toast({
         title: "Registration Successful!",
-        description: "Your hackathon registration has been submitted.",
+        description: `Your registration for ${formData.event_name} has been submitted.`,
         variant: "default",
       });
     } catch (error) {

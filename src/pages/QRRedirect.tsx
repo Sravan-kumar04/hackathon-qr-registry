@@ -1,18 +1,23 @@
 
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const QRRedirect = () => {
   const navigate = useNavigate();
+  const { eventId } = useParams<{ eventId: string }>();
 
   useEffect(() => {
-    // Automatically redirect to registration page after a short delay
+    // Automatically redirect to event registration page after a short delay
     const redirectTimer = setTimeout(() => {
-      navigate('/register');
+      if (eventId) {
+        navigate(`/register/${eventId}`);
+      } else {
+        navigate('/register');
+      }
     }, 1000); // 1-second delay before redirecting
     
     return () => clearTimeout(redirectTimer); // Clean up timer on unmount
-  }, [navigate]);
+  }, [navigate, eventId]);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">

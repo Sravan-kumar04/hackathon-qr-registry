@@ -8,6 +8,7 @@ import Index from "./pages/Index";
 import RegistrationPage from "./pages/RegistrationPage";
 import QRCodePage from "./pages/QRCodePage";
 import QRRedirect from "./pages/QRRedirect";
+import EventDetailsPage from "./pages/EventDetailsPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -21,8 +22,12 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/register" element={<RegistrationPage />} />
+          <Route path="/register/:eventId" element={<RegistrationPage />} />
           <Route path="/qr-code" element={<QRCodePage />} />
+          <Route path="/qr-code/:eventId" element={<QRCodePage />} />
           <Route path="/qr" element={<QRRedirect />} />
+          <Route path="/qr/:eventId" element={<QRRedirect />} />
+          <Route path="/event/:eventId" element={<EventDetailsPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

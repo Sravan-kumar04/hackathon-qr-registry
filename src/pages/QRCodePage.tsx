@@ -1,18 +1,22 @@
 
-import React from 'react';
-import QRCodeGenerator from '@/components/QRCodeGenerator';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useParams } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { ChevronLeft, Clipboard, Check } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import { useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
+import QRCodeGenerator from '@/components/QRCodeGenerator';
+import { getHackathonById } from '@/data/hackathonEvents';
 
 const QRCodePage = () => {
   const { toast } = useToast();
-  const redirectUrl = `${window.location.origin}/qr`;
+  const { eventId } = useParams<{ eventId: string }>();
   const [copied, setCopied] = useState(false);
+  
+  const event = eventId ? getHackathonById(eventId) : null;
+  const redirectUrl = `${window.location.origin}/qr/${eventId || ''}`;
+  const pageTitle = event ? `${event.title} QR Code` : 'Hackathon Registration QR Code';
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(redirectUrl);
@@ -29,16 +33,18 @@ const QRCodePage = () => {
       <div className="container mx-auto">
         <div className="flex justify-start mb-6">
           <Button asChild variant="ghost" size="sm">
-            <Link to="/" className="flex items-center">
-              <ChevronLeft className="h-4 w-4 mr-1" /> Back to Home
+            <Link to={eventId ? `/event/${eventId}` : "/"} className="flex items-center">
+              <ChevronLeft className="h-4 w-4 mr-1" /> 
+              {eventId ? 'Back to Event' : 'Back to Home'}
             </Link>
           </Button>
         </div>
         
         <div className="max-w-4xl mx-auto text-center mb-8">
-          <h1 className="text-3xl font-bold mb-2">Hackathon Registration QR Code</h1>
+          <h1 className="text-3xl font-bold mb-2">{pageTitle}</h1>
           <p className="text-gray-600">
             Scan this QR code to directly access the registration form
+            {event && ` for ${event.title}`}
           </p>
         </div>
         
@@ -85,7 +91,7 @@ const QRCodePage = () => {
               </div>
               
               <Button asChild className="w-full mt-4">
-                <Link to="/register">
+                <Link to={eventId ? `/register/${eventId}` : "/register"}>
                   Go to Registration Form
                 </Link>
               </Button>
