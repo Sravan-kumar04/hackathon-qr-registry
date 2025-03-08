@@ -11,7 +11,7 @@ import { useToast } from '@/hooks/use-toast';
 
 const QRCodePage = () => {
   const { toast } = useToast();
-  const redirectUrl = window.location.origin + '/qr';
+  const redirectUrl = `${window.location.origin}/qr`;
   const [copied, setCopied] = useState(false);
 
   const copyToClipboard = () => {

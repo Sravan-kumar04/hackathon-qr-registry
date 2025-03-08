@@ -14,14 +14,14 @@ const QRCodeGenerator: React.FC<QRCodeGeneratorProps> = ({ value }) => {
 
   useEffect(() => {
     // Use Google Charts API to generate QR code
-    const redirectUrl = window.location.origin + '/qr';
-    const encodedValue = encodeURIComponent(redirectUrl);
-    const url = `https://chart.googleapis.com/chart?cht=qr&chl=${encodedValue}&chs=250x250&choe=UTF-8&chld=L|2`;
+    // Generate the QR code using the provided value
+    const url = `https://chart.googleapis.com/chart?cht=qr&chl=${encodeURIComponent(value)}&chs=250x250&choe=UTF-8&chld=L|2`;
     setQrCodeUrl(url);
     setIsLoading(false);
-  }, []);
+  }, [value]); // Re-generate when value changes
 
   const downloadQRCode = () => {
+    // Create a temporary link to download the image
     const link = document.createElement('a');
     link.href = qrCodeUrl;
     link.download = 'hackathon-registration-qr.png';

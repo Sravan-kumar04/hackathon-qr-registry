@@ -6,8 +6,12 @@ const QRRedirect = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Automatically redirect to registration page
-    navigate('/register');
+    // Automatically redirect to registration page after a short delay
+    const redirectTimer = setTimeout(() => {
+      navigate('/register');
+    }, 1000); // 1-second delay before redirecting
+    
+    return () => clearTimeout(redirectTimer); // Clean up timer on unmount
   }, [navigate]);
 
   return (
