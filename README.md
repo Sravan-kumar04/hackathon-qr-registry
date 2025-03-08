@@ -1,8 +1,46 @@
-# Welcome to your Lovable project
+
+# Hackathon Registration Form with QR Code Access
+
+A comprehensive registration system for hackathon events featuring multi-step form validation and QR code integration.
 
 ## Project info
 
 **URL**: https://lovable.dev/projects/eea2096e-c07a-4633-ab79-86ef2df8cffc
+
+## Features
+
+- **QR Code Integration**: Generate a QR code linking to the registration page
+- **Multi-Step Form**: Implement a step-wise registration process for better user experience
+- **Form Validations**: Comprehensive validation for all input fields
+- **Responsive Design**: Works on mobile, tablet, and desktop devices
+- **Pattern-Based Validation**: Validate emails, phone numbers, and social media links
+
+## Data Model
+
+| Field          | Type      | Description                             |
+|----------------|-----------|----------------------------------------|
+| user_id        | INT       | Primary Key                            |
+| full_name      | VARCHAR   | Participant full name                  |
+| email          | VARCHAR   | Email with format validation           |
+| phone_number   | VARCHAR   | 10-digit numeric phone number          |
+| college_name   | VARCHAR   | College name                           |
+| degree         | ENUM      | Degree program (B.Tech, M.Tech, etc.)  |
+| year_of_study  | ENUM      | Year (1st, 2nd, etc.)                  |
+| cgpa           | DECIMAL   | CGPA (e.g., 9.8, 8.5)                 |
+| tech_stack     | JSON      | Primary tech stack selection           |
+| other_skills   | TEXT      | Additional skills                      |
+| project_idea   | TEXT      | Optional project idea (min 50 chars)   |
+| linkedin       | VARCHAR   | LinkedIn profile (URL validation)      |
+| github         | VARCHAR   | GitHub profile (URL validation)        |
+
+## Technologies Used
+
+- React
+- TypeScript
+- Tailwind CSS
+- shadcn-ui
+- React Router
+- Lucide React (icons)
 
 ## How can I edit this code?
 
@@ -36,34 +74,9 @@ npm i
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+## Future Enhancements
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with .
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/eea2096e-c07a-4633-ab79-86ef2df8cffc) and click on Share -> Publish.
-
-## I want to use a custom domain - is that possible?
-
-We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)
+- Integration with Google Forms API for additional registration insights
+- Team formation functionality
+- Admin dashboard for event organizers
+- Email confirmation system
